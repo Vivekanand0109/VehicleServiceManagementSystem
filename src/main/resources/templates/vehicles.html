@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Vehicles</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>
+        body { padding: 20px; }
+        .section { margin-bottom: 30px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Manage Vehicles</h1>
+
+        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+        <div class="section">
+            <h3>Vehicles</h3>
+            <form th:action="@{/admin/vehicles}" th:object="${vehicle}" method="post" class="mb-4">
+                <div class="form-group">
+                    <label>Registration Number</label>
+                    <input type="text" th:field="*{registrationNumber}" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Model</label>
+                    <input type="text" th:field="*{model}" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Customer</label>
+                    <select th:field="*{customer.id}" class="form-control" required>
+                        <option value="">Select Customer</option>
+                        <option th:each="customer : ${customers}" 
+                                th:value="${customer.id}" 
+                                th:text="${customer.name}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Last Service Date</label>
+                    <input type="date" th:field="*{lastServiceDate}" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Reg. Number</th>
+                        <th>Model</th>
+                        <th>Customer Name</th>
+                        <th>Last Service</th>
+                        <th>Actions</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="vehicle : ${vehicles}">
+                        <td th:text="${vehicle.id}"></td>
+                        <td th:text="${vehicle.registrationNumber}"></td>
+                        <td th:text="${vehicle.model}"></td>
+                        <td th:text="${vehicle.customer.name}"></td>
+                        <td th:text="${vehicle.lastServiceDate}"></td>
+                        <td>
+                            <a th:href="@{/admin/vehicles/edit/{id}(id=${vehicle.id})}" 
+                               class="btn btn-sm btn-warning">Edit</a>
+                            <a th:href="@{/admin/vehicles/delete/{id}(id=${vehicle.id})}" 
+                               class="btn btn-sm btn-danger">Delete</a>
+                            <form th:action="@{/admin/vehicles/schedule/{id}(id=${vehicle.id})}" method="post" class="d-inline">
+                                <select name="advisorId" class="form-control d-inline w-auto">
+                                <option value="Select">Select Advisor</option>
+                                    <option th:each="advisor : ${advisors}" 
+                                            th:value="${advisor.id}" 
+                                            th:text="${advisor.name}"></option>
+                                </select>
+                                <select name="issueType" class="form-control d-inline w-auto">
+                                    <option value="Select">Select Issue</option>
+                                    <option value="Oil Change">Oil Change</option>
+                                    <option value="Tire Rotation">Tyre Change</option>
+                                    <option value="General Service">General Service</option>
+                                     <option value="Brake Repair">Brake Repair</option>
+                                      <option value="Suspension Repair">Suspension Repair</option>
+                                       <option value="Engine Issue">Engine Issue</option>
+                                </select>
+
+                                <button type="submit" class="btn btn-sm btn-info">Move to Service</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <a th:href="@{/admin/dashboard}" class="btn btn-info">Back to Dashboard</a>
+    </div>
+</body>
+</html>

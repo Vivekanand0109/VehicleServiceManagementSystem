@@ -1,0 +1,262 @@
+<!--
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>
+        body { padding: 20px; }
+        .card { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Admin Dashboard</h1>
+
+        <div class="card">
+            <div class="card-header">History</div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Vehicle</th>
+                            <th>Customer</th>
+                            <th>Advisor</th>
+                            <th>Date</th>
+                            <th>Issue Type</th>
+                            <th>Cost</th>
+                            <th>Progress</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="service : ${history}">
+                            <td th:text="${service.id}"></td>
+                            <td th:text="${service.vehicle.registrationNumber}"></td>
+                            <td th:text="${service.vehicle.customer.name}"></td>
+                            <td th:text="${service.serviceAdvisor.name}"></td>
+                            <td th:text="${service.serviceDate}"></td>
+                            <td th:text="${service.issueType}"></td>
+                            <td>
+                                <span th:each="item : ${service.workItems}" th:text="${item.cost}"></span>
+                            </td>
+                            <td th:text="${service.status}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <a th:href="@{/admin/add-customer}" class="btn btn-primary">Add Customer</a>
+        <a th:href="@{/admin/vehicles}" class="btn btn-primary">Manage Vehicles</a>
+        <a th:href="@{/admin/service-advisors}" class="btn btn-primary">Manage Service Advisors</a>
+    </div>
+</body>
+</html>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>
+        body { padding: 20px; }
+        .card { margin-bottom: 20px; }
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container position-relative">
+        <h1 class="text-center">Admin Dashboard</h1>
+
+        <a th:href="@{/admin-login}" class="btn btn-secondary logout-btn">Logout</a>
+
+        <div class="card">
+            <div class="card-header">History</div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Vehicle</th>
+                            <th>Customer</th>
+                            <th>Advisor</th>
+                            <th>Date</th>
+                            <th>Issue Type</th>
+                            <th>Cost</th>
+                            <th>Progress</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="service : ${history}">
+                            <td th:text="${service.id}"></td>
+                            <td th:text="${service.vehicle.registrationNumber}"></td>
+                            <td th:text="${service.vehicle.customer.name}"></td>
+                            <td th:text="${service.serviceAdvisor.name}"></td>
+                            <td th:text="${service.serviceDate}"></td>
+                            <td th:text="${service.issueType}"></td>
+                            <td>
+                                <span th:each="item : ${service.workItems}" th:text="${item.cost}"></span>
+                            </td>
+                            <td th:text="${service.status}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <a th:href="@{/admin/add-customer}" class="btn btn-primary">Add Customer</a>
+        <a th:href="@{/admin/vehicles}" class="btn btn-primary">Manage Vehicles</a>
+        <a th:href="@{/admin/service-advisors}" class="btn btn-primary">Manage Service Advisors</a>
+    </div>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>
+        body { padding: 20px; }
+        .card { margin-bottom: 20px; }
+        .top-right-buttons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .top-right-buttons .btn {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container position-relative">
+        <h1 class="text-center">Admin Dashboard</h1>
+
+        <div class="top-right-buttons">
+
+            <a th:href="@{/login}" class="btn btn-secondary">Logout</a>
+        </div>
+
+        <div class="card">
+            <div class="card-header">History</div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Vehicle</th>
+                            <th>Customer</th>
+                            <th>Advisor</th>
+                            <th>Date</th>
+                            <th>Issue Type</th>
+                            <th>Cost</th>
+                            <th>Progress</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="service : ${history}">
+                            <td th:text="${service.id}"></td>
+                            <td th:text="${service.vehicle.registrationNumber}"></td>
+                            <td th:text="${service.vehicle.customer.name}"></td>
+                            <td th:text="${service.serviceAdvisor.name}"></td>
+                            <td th:text="${service.serviceDate}"></td>
+                            <td th:text="${service.issueType}"></td>
+                            <td>
+                                <span th:each="item : ${service.workItems}" th:text="${item.cost}"></span>
+                            </td>
+                            <td th:text="${service.status}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <a th:href="@{/admin/add-customer}" class="btn btn-primary">Add Customer</a>
+        <a th:href="@{/admin/vehicles}" class="btn btn-primary">Manage Vehicles</a>
+        <a th:href="@{/admin/service-advisors}" class="btn btn-primary">Manage Service Advisors</a>
+    </div>
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>
+        body { padding: 20px; }
+        .card { margin-bottom: 20px; }
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container position-relative">
+        <h1 class="text-center">Admin Dashboard</h1>
+
+        <a th:href="@{/login}" class="btn btn-secondary logout-btn">Logout</a>
+
+        <div class="card">
+            <div class="card-header">History</div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Vehicle</th>
+                            <th>Customer</th>
+                            <th>Advisor</th>
+                            <th>Date</th>
+                            <th>Issue Type</th>
+                            <th>Cost</th>
+                            <th>Progress</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="service : ${history}">
+                            <td th:text="${service.id}"></td>
+                            <td th:text="${service.vehicle.registrationNumber}"></td>
+                            <td th:text="${service.vehicle.customer.name}"></td>
+                            <td th:text="${service.serviceAdvisor.name}"></td>
+                            <td th:text="${service.serviceDate}"></td>
+                            <td th:text="${service.issueType}"></td>
+                            <td>
+                                <span th:each="item : ${service.workItems}" th:text="${item.cost}"></span>
+                            </td>
+                            <td th:text="${service.status}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <a th:href="@{/admin/add-customer}" class="btn btn-primary">Add Customer</a>
+        <a th:href="@{/admin/vehicles}" class="btn btn-primary">Manage Vehicles</a>
+        <a th:href="@{/admin/service-advisors}" class="btn btn-primary">Manage Service Advisors</a>
+    </div>
+</body>
+</html>
+
+
